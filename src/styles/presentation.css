@@ -1,0 +1,35 @@
+.paragraph {
+    margin: 4rem;
+    padding: 2rem;
+    font-size: 30px;
+    text-align:center;
+}
+
+.code{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 28px;
+}
+
+.red{
+    color: red;
+}
+
+.orange{
+    color:orange;
+}
+
+.yellow{
+    color: gold;
+}
+
+.green{
+    color:limegreen;
+}
+
+.blue{
+    color:blue;
+}
+
+.purple{
+    color:blueviolet;
+}
