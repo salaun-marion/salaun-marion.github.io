@@ -1,7 +1,5 @@
 *{
   box-sizing: border-box;
-  margin:0;
-  padding:0;
 }
 
 body {
@@ -17,6 +15,14 @@ body {
   align-items: center;
   gap: 2rem;
   padding : 0 1rem;
+
+  position: fixed;
+  top:0;
+  width: 100%;
+  z-index: 999;
+  height: 100px;
+  background-color: white;
+
 }
 
 .site-title{
@@ -50,8 +56,10 @@ body {
   height: 40px;
   width: 40px;
   padding: 0.5rem;
+  margin: 30px;
   border-radius: 50%;
   background-color: black;
+
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   position: absolute;
@@ -86,7 +94,7 @@ body {
     left: 0;
     flex-direction: column;
     width: 100%;
-    height: calc(100vh - 77px);
+    height: calc(100vh - 60vh);
     background-color: white;
     border-top: 1px solid black;
   }
