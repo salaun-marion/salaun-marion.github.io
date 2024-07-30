@@ -1,6 +1,5 @@
 import gsap from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/accordion.css';
 
 function useEffectOnce(effect) {
@@ -30,6 +29,8 @@ function useEffectOnce(effect) {
 }
 
 export default function Accordion() {
+  const [clickCounts, setClickCounts] = useState(Array(4).fill(0));
+
   useEffectOnce(() => {
     const items = document.querySelectorAll('.item');
 
@@ -56,18 +57,33 @@ export default function Accordion() {
     });
   });
 
+  const handleClick = (index) => {
+    console.log('CLICKCOUNTS', clickCounts);
+    const newClickCounts = [...clickCounts];
+
+    newClickCounts[index] += 1;
+    console.log('NEWCLICKCOUNTS', newClickCounts);
+    setClickCounts(newClickCounts);
+
+    if (newClickCounts[1] === 2) {
+      window.location.href = `https://github.com/salaun-marion/GenderPayGap`;
+    }
+    if (newClickCounts[3] === 2) {
+      window.location.href = `https://github.com/salaun-marion/board-counter`;
+    }
+  };
+
   return (
     <div className="group">
       <div
         className="item"
         style={{ backgroundImage: 'url(images/Blob.png)' }}
       ></div>
-      {/* <Link to="https://github.com/salaun-marion/GenderPayGap"> */}
       <div
         className="item"
         style={{ backgroundImage: 'url(images/GenderPayGap.png)' }}
+        onClick={() => handleClick(1)}
       ></div>
-      {/* </Link> */}
       <div
         className="item"
         style={{
@@ -83,6 +99,7 @@ export default function Accordion() {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
         }}
+        onClick={() => handleClick(3)}
       ></div>
     </div>
   );
