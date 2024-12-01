@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
+import ReactPlayer from 'react-player';
 import '../styles/accordion.css';
 
 function useEffectOnce(effect) {
@@ -58,20 +59,41 @@ export default function Accordion() {
   });
 
   const handleClick = (index) => {
-    console.log('CLICKCOUNTS', clickCounts);
     const newClickCounts = [...clickCounts];
 
     newClickCounts[index] += 1;
-    console.log('NEWCLICKCOUNTS', newClickCounts);
     setClickCounts(newClickCounts);
 
     if (newClickCounts[1] === 2) {
       window.location.href = `https://github.com/salaun-marion/GenderPayGap`;
     }
+    // if (newClickCounts[2] === 2) {
+    // }
     if (newClickCounts[3] === 2) {
       window.location.href = `https://github.com/salaun-marion/board-counter`;
     }
   };
+
+  const [styleCircu, setStyleCircu] = useState({
+    backgroundImage: 'url(images/Circurement.png)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  });
+
+  const handleCircuClick = () => {
+    setStyleCircu({});
+    setPlayerStyle({ display: 'flex' });
+    // setPlayerWidth('100%');
+    // setPlayerHeight()
+  };
+
+  const [playerStyle, setPlayerStyle] = useState({
+    display: 'none',
+  });
+
+  const [playerWidth, setPlayerWidth] = useState('100%');
+
+  const [playerHeight, setPlayerHeight] = useState('75vh');
 
   return (
     <div className="group">
@@ -84,14 +106,16 @@ export default function Accordion() {
         style={{ backgroundImage: 'url(images/GenderPayGap.png)' }}
         onClick={() => handleClick(1)}
       ></div>
-      <div
-        className="item"
-        style={{
-          backgroundImage: 'url(images/Circurement.png)',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
-      ></div>
+      <div className="item" style={styleCircu} onClick={handleCircuClick}>
+        <ReactPlayer
+          url="https://vimeo.com/1034941029/36868d0626"
+          loop={true}
+          playing={true}
+          height={playerHeight}
+          width={playerWidth}
+          style={playerStyle}
+        />
+      </div>
       <div
         className="item"
         style={{
