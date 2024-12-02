@@ -2,6 +2,8 @@ import gsap from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import '../styles/accordion.css';
+import Legend from './Legend';
+import { itemsData, style } from '../constants/constants';
 
 function useEffectOnce(effect) {
   const effectFn = useRef(effect);
@@ -30,7 +32,10 @@ function useEffectOnce(effect) {
 }
 
 export default function Accordion() {
-  const [clickCounts, setClickCounts] = useState(Array(4).fill(0));
+  const [styleCircu, setStyleCircu] = useState(style);
+  const [playerStyle, setPlayerStyle] = useState({
+    display: 'none',
+  });
 
   useEffectOnce(() => {
     const items = document.querySelectorAll('.item');
@@ -46,11 +51,21 @@ export default function Accordion() {
         ease: 'elastic(0.5, .9)',
       });
       item.clicked = !item.clicked;
+
       gsap.to(item, {
         width: item.clicked ? '48vw' : '15vw',
         duration: 2.5,
         ease: 'elastic(0.5, .9)',
       });
+
+      // To launch the video for item number 2
+      if (i != 2) {
+        setStyleCircu(styleCircu);
+        setPlayerStyle({ display: 'none' });
+      } else {
+        setStyleCircu({});
+        setPlayerStyle({ display: 'flex' });
+      }
     };
     items.forEach((item, i) => {
       item.clicked = false;
@@ -58,73 +73,37 @@ export default function Accordion() {
     });
   });
 
-  const handleClick = (index) => {
-    const newClickCounts = [...clickCounts];
-
-    newClickCounts[index] += 1;
-    setClickCounts(newClickCounts);
-
-    if (newClickCounts[1] === 2) {
-      window.location.href = `https://github.com/salaun-marion/GenderPayGap`;
-    }
-    // if (newClickCounts[2] === 2) {
-    // }
-    if (newClickCounts[3] === 2) {
-      window.location.href = `https://github.com/salaun-marion/board-counter`;
-    }
-  };
-
-  const [styleCircu, setStyleCircu] = useState({
-    backgroundImage: 'url(images/Circurement.png)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  });
-
-  const handleCircuClick = () => {
-    setStyleCircu({});
-    setPlayerStyle({ display: 'flex' });
-    // setPlayerWidth('100%');
-    // setPlayerHeight()
-  };
-
-  const [playerStyle, setPlayerStyle] = useState({
-    display: 'none',
-  });
-
-  const [playerWidth, setPlayerWidth] = useState('100%');
-
-  const [playerHeight, setPlayerHeight] = useState('75vh');
-
   return (
-    <div className="group">
-      <div
-        className="item"
-        style={{ backgroundImage: 'url(images/Blob.png)' }}
-      ></div>
-      <div
-        className="item"
-        style={{ backgroundImage: 'url(images/GenderPayGap.png)' }}
-        onClick={() => handleClick(1)}
-      ></div>
-      <div className="item" style={styleCircu} onClick={handleCircuClick}>
-        <ReactPlayer
-          url="https://vimeo.com/1034941029/36868d0626"
-          loop={true}
-          playing={true}
-          height={playerHeight}
-          width={playerWidth}
-          style={playerStyle}
-        />
+    <>
+      <div className="group">
+        {itemsData.map((item) => (
+          <div
+            key={item.index}
+            className="item"
+            style={
+              item.index === 2
+                ? styleCircu
+                : {
+                    backgroundImage: item.backgroundImage,
+                    backgroundRepeat: item.backgroundRepeat,
+                    backgroundSize: item.backgroundSize,
+                  }
+            }
+          >
+            {item.isVideo && (
+              <ReactPlayer
+                url="https://vimeo.com/1034941029/36868d0626"
+                loop={true}
+                playing={true}
+                height={'75vh'}
+                width={'100%'}
+                style={playerStyle}
+              />
+            )}
+          </div>
+        ))}
       </div>
-      <div
-        className="item"
-        style={{
-          backgroundImage: 'url(images/board.png)',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
-        onClick={() => handleClick(3)}
-      ></div>
-    </div>
+      {/* <Legend index={}/>  */}
+    </>
   );
 }

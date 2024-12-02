@@ -90,13 +90,12 @@ body {
 
   .nav ul {
     position: absolute;
-    top: 60px;
+    top: 70px;
     left: 0;
     flex-direction: column;
     width: 100%;
-    height: calc(100vh - 60vh);
+    height: calc(100vh - 65vh);
     background-color: white;
-    border-top: 1px solid black;
     border-bottom: 1px solid black;
   }
 
