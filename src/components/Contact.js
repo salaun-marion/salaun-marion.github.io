@@ -30,7 +30,7 @@ export default function Contact() {
       <p className="copyright">
         Created by myself℠ with the moral support from my 🐶. Inspiration from{' '}
         <a href="https://www.supah.it/portfolio">Fabio Ottaviani</a>. Last
-        update the 29th July 2024.
+        update the 9th December 2024.
       </p>
     </div>
   );

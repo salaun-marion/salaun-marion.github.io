@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GithubIcon = (props) => (
+const GithubIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="2em"

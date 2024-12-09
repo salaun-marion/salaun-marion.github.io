@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LinkedinIcon = (props) => (
+const LinkedinIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="2em"

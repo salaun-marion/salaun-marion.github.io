@@ -36,6 +36,7 @@ export default function Accordion() {
   const [playerStyle, setPlayerStyle] = useState({
     display: 'none',
   });
+  const [itemSelect, setItemSelect] = useState(null);
 
   useEffectOnce(() => {
     const items = document.querySelectorAll('.item');
@@ -45,11 +46,13 @@ export default function Accordion() {
         if (i === ind) return;
         it.clicked = false;
       });
+
       gsap.to(items, {
         width: item.clicked ? '15vw' : '8vw',
         duration: 2,
         ease: 'elastic(0.5, .9)',
       });
+
       item.clicked = !item.clicked;
 
       gsap.to(item, {
@@ -59,7 +62,7 @@ export default function Accordion() {
       });
 
       // To launch the video for item number 2
-      if (i != 2) {
+      if (i !== 2) {
         setStyleCircu(styleCircu);
         setPlayerStyle({ display: 'none' });
       } else {
@@ -67,9 +70,13 @@ export default function Accordion() {
         setPlayerStyle({ display: 'flex' });
       }
     };
+
     items.forEach((item, i) => {
       item.clicked = false;
-      item.addEventListener('click', () => expand(item, i));
+      item.addEventListener('click', () => {
+        expand(item, i);
+        setItemSelect(i);
+      });
     });
   });
 
@@ -103,7 +110,18 @@ export default function Accordion() {
           </div>
         ))}
       </div>
-      {/* <Legend index={}/>  */}
+      {itemsData.map((item) => {
+        if (itemSelect === item.index) {
+          return (
+            <Legend
+              key={item.index}
+              description={item.description}
+              url={item.url}
+            />
+          );
+        }
+        return null;
+      })}
     </>
   );
 }
